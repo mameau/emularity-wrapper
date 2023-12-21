@@ -12,7 +12,7 @@
 		<li class="item"><a href="index.php" title="Home"><i class="las la-home"></i></a></li>
 		<li class="item"><a onclick="location.reload();" href="javascript:void(0);" title="Reload"><i class="las la-redo-alt"></i></a></li>
 		<li class="item"><a onclick="dumpState()" href="javascript:void(0);" title="Dump State"><i class="las la-save"></i></a></li>
-    		<li class="item"><label for="state-upload"><i class="las la-upload"></i></label><input id="state-upload" type="file" onchange="uploadState()" title="Upload State"/></li>
+    	<li class="item"><label for="state-upload"><i class="las la-upload"></i></label><input id="state-upload" type="file" onchange="uploadState()" title="Upload State"/></li>
 		<li class="item"><a onclick="toggleFullScreen()" href="javascript:void(0);" title="Fullscreen"><i class="las la-expand"></i></a></li>
 		<li class="item"><a onclick="emulator.toggleMute()" href="javascript:void(0);" title="Mute"><i class="las la-volume-mute"></i></a></li>
 	</ul>
@@ -23,7 +23,7 @@
 		<!-- <li class="item"><a onclick="createNVRAM()" href="javascript:void(0);" title="Create NVRAM"><i class="las la-microchip"></i></a></li> -->
 	</ul>
     </div>
-    <div id="states"></div>
+    <div id="states" style="display: none;"></div>
     <script type="text/javascript">
       var machine = "<?php echo $machine ?>";
       var cliArgs = "<?php echo $cliArgs ?>";
@@ -64,32 +64,32 @@
 	      return files;
       };
 
-      // toggle fullscreen
-      function toggleFullScreen() {
-	      emulator.requestFullScreen();
+    // toggle fullscreen
+    function toggleFullScreen() {
+	    emulator.requestFullScreen();
 	}
 
-      // download a file to local user
-      // https://forums.overclockers.com.au/posts/18652688/
-      function dumpFile(abs) {
+	// download a file to local user
+	// https://forums.overclockers.com.au/posts/18652688/
+	function dumpFile(abs) {
 	var bytes = window.FS.readFile(abs);
 	var saveByteArray = (function () {
-	    var a = document.createElement("a");
-	    document.body.appendChild(a);
-	    a.style = "display: none";
-	    return function (data, name) {
+		var a = document.createElement("a");
+		document.body.appendChild(a);
+		a.style = "display: none";
+		return function (data, name) {
 		var blob = new Blob(data, {type: "octet/stream"}),
-		    url = window.URL.createObjectURL(blob);
+			url = window.URL.createObjectURL(blob);
 		a.href = url;
 		a.download = name;
 		a.click();
 		window.URL.revokeObjectURL(url);
-	    };
+		};
 	}());
 	saveByteArray([bytes],machine+"_"+basename(abs));
-      }
+	}
 
-      // simple basename funciton
+      // simple basename function
 	function basename(path) {
 	   return path.split('/').reverse()[0];
 	}
@@ -108,28 +108,30 @@
       // dump the state files for the user to download
       function dumpState(dir='sta') {
 	      try {
-		      var stateFS = getDirectory(dir);
-		      var staOpts = [];
-			stateFS.forEach((element) => {
-			if ( element !== '..' && element !== '.' && element.match(/.*\.sta$/) != 'null' ) {
-				staOpts.push(element);
-			}
-		      });
-
-		      var states = document.getElementById('states');
-		      states.innerHTML = "";
-		      staOpts.forEach((element) => {
-			var aTag = document.createElement('a');
-			aTag.setAttribute('href',"javascript:void(0);");
-			aTag.setAttribute('title',basename(element));
-			aTag.addEventListener('click',function(event) {
-			    dumpFile(element)
-			    // Prevent the default behavior (in this case, following the link)
-			    event.preventDefault();
+		    	var stateFS = getDirectory(dir);
+		    	var staOpts = [];
+				stateFS.forEach((element) => {
+				if ( element !== '..' && element !== '.' && element.match(/.*\.sta$/) != 'null' ) {
+					staOpts.push(element);
+				}
 			});
-			aTag.innerHTML = '<i class="las la-file">';
-			states.appendChild(aTag);
-		      });
+
+			var states = document.getElementById('states');
+			states.innerHTML = "";
+			staOpts.forEach((element) => {
+				var aTag = document.createElement('a');
+				aTag.setAttribute('href',"javascript:void(0);");
+				aTag.setAttribute('title',basename(element));
+				aTag.addEventListener('click',function(event) {
+					dumpFile(element)
+					states.style.display = "none";
+					// Prevent the default behavior (in this case, following the link)
+					event.preventDefault();
+				});
+				aTag.innerHTML = '<i class="las la-file">';
+				states.appendChild(aTag);
+				states.style.display = "block";
+			});
 	      } catch {
 			alert("save state not found");
 	      }
