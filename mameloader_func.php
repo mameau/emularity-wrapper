@@ -12,7 +12,7 @@ isset($_GET['rh']) ? $resh = $_GET['rh'] : $resh = 224;
 isset($_GET['p']) ? $peripherals = $_GET['p'] : $peripherals = array();
 isset($_GET['cli']) ? $cli = $_GET['cli'] : $cli = array();
 
-$cliDefaults = "-verbose -ui_active -lowlatency -nowaitvsync -nofilter -renderdriver opengles2";
+$cliDefaults = "-ui_active -lowlatency -nowaitvsync -nofilter -renderdriver opengles2";
 $cliMerge = implode(" ", $cli);
 $cliArgs = "$cliDefaults $cliMerge";
 
@@ -22,8 +22,8 @@ $cliArgs = "$cliDefaults $cliMerge";
 #
 function mount($name="nonlisted.zip",$path="assets") {
 	echo('
-		JSMAMELoader.mountFile("'.basename($name).'",
-					JSMAMELoader.fetchFile("'.basename($name).'",
+		MAMELoader.mountFile("'.basename($name).'",
+					MAMELoader.fetchFile("'.basename($name).'",
 								"'.$path.'/'.$name.'")),
 	    ');
 }
@@ -51,7 +51,7 @@ function peripheral($array) {
 	if ( $array != NULL )
 	{
 		foreach ( $array as $key => $item ) {
-			echo('JSMAMELoader.peripheral("'.$key.'","'.$item.'"),');
+			echo('MAMELoader.peripheral("'.$key.'","'.$item.'"),');
 		}
 	}
 }

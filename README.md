@@ -1,13 +1,14 @@
 # emularity-wrapper
 messing around with emularity
 
-wrapper for emularity, see index.php (yes, yes) for examples of loading titles. nothing here is secured so use at your own risk.
+wrapper for emularity, see index.php (yes, yes) for examples of loading titles. nothing here is secured so use at your own risk. You can download and upload states from/to your session
 
 ## setup
 1. clone this repo
-2. clone emularity report as sub directory
+2. clone emularity repo into vendor directory
+2. clone the fancy-ass icons8 set repo into vendor directory
 3. host the site (php required atm)
-4. add roms and software
+4. add roms and software, update index.php
 4. play some games
 
 ## layout
@@ -24,7 +25,7 @@ wrapper for emularity, see index.php (yes, yes) for examples of loading titles. 
 │       ├── psx
 │       │   └── thps2
 │       ├── sms
-
+├── vendor
 ```
 
 ## folders
@@ -58,3 +59,6 @@ cli[]   -> custom cli options (extraArgs)
 4. mount additional software and/or assets 
 5. attach software to slots
 6. start the machine
+
+
+Have only tried out MAME so far
