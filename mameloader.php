@@ -19,6 +19,7 @@
               new MAMELoader(MAMELoader.driver(machine),
 						  MAMELoader.nativeResolution(<?php echo "$resw,$resh" ?>),
 						  MAMELoader.scale(<?php echo $scale ?>),
+						  MAMELoader.keepAspect(1),
               MAMELoader.emulatorJS("binaries/machines/<?php echo $machine ?>.js"),
 						  MAMELoader.extraArgs(cliArgs.split(" ")),
               <?php peripheral($peripherals); ?>
