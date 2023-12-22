@@ -5,6 +5,8 @@ $machine = filter_input(INPUT_GET, 'm', FILTER_SANITIZE_SPECIAL_CHARS);
 isset($_GET['r']) ? $roms = $_GET['r'] : $roms = array() ;
 isset($_GET['a']) ? $assets = $_GET['a'] : $assets = array();
 isset($_GET['s']) ? $software = $_GET['s'] : $software = array();
+isset($_GET['n']) ? $nvram = $_GET['n'] : $nvram = array();
+isset($_GET['st']) ? $state = $_GET['st'] : $state = array();
 isset($_GET['sl']) ? $softwarelist = $_GET['sl'] : $softwarelist = array();
 isset($_GET['sc']) ? $scale = $_GET['sc'] : $scale = 3;
 isset($_GET['rw']) ? $resw = $_GET['rw'] : $resw = 256;
@@ -25,7 +27,7 @@ function mount($name="nonlisted.zip",$path="assets") {
 		MAMELoader.mountFile("'.basename($name).'",
 					MAMELoader.fetchFile("'.basename($name).'",
 								"'.$path.'/'.$name.'")),
-	    ');
+		');
 }
 
 ## mount_all
