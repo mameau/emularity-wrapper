@@ -27,6 +27,7 @@
 							<?php mount_all($roms,"binaries/roms"); ?>
 							<?php mount_all($software,"binaries/software"); ?>
 							<?php mount_all($softwarelist,"assets/hash"); ?>
+							<?php mount_all($state,"binaries/state/$machine"); ?>
 			));
 			emulator.start({ waitAfterDownloading: false });
 

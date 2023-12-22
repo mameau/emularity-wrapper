@@ -49,8 +49,15 @@
 </div>
 
 <div>
-	`<h1>IBM PC</h1>
-	<a href="mameloader.php?m=ct486&r[]=ct486.zip&r[]=at_keybc.zip&r[]=kb_ms_natural.zip&r[]=et4000.zip&rw=720&rh=400&sc=2">ct486</a><br />`
+	<h1>SEGA SC-3000</h1>
+	<a href="mameloader.php?m=sc3000&r[]=sc3000.zip&rw=560&rh=432&sc=1">SEGA SC-3000</a><br />
+	<a href="mameloader.php?m=sc3000&r[Bios]=sc3000.zip&s[Sega Basic Cart]=sc3000/Sega_BASIC_Level_3_V1_SC-3000.zip&p[cart]=Sega_BASIC_Level_3_V1_SC-3000.zip&rw=560&rh=432&sc=1">SEGA Basic</a><br />
+	<a href="mameloader.php?m=sc3000&r[Bios]=sc3000.zip&s[Sega Basic Cart]=sc3000/Sega_BASIC_Level_3_V1_SC-3000.zip&st[Save State]=vblaster/1.sta&p[cart]=Sega_BASIC_Level_3_V1_SC-3000.zip&rw=560&rh=432&sc=1&cli[]=-state_directory emulator -statename . -state 1">Vortex Blaster</a> (Save State, danmons)<br />
+</div>
+
+<div>
+	<h1>IBM PC</h1>
+	<a href="mameloader.php?m=ct486&r[]=ct486.zip&r[]=at_keybc.zip&r[]=kb_ms_natural.zip&r[]=et4000.zip&rw=720&rh=400&sc=2">ct486</a><br />
 </div>
 
 <div>

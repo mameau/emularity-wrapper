@@ -41,13 +41,13 @@ body {
 	top: 0;
 	z-index:99;
 	position: absolute;
-	text-align: center;
+	text-align: center;	
 }
-#state-upload {
+.upload{
 	display:none;
 }
 
-.la-upload {
+.la-upload, .la-file-upload, .la-file-import {
 	cursor:pointer;
 }
 

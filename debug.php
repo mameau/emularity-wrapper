@@ -11,7 +11,8 @@
 				<li class="item"><a href="index.php" title="Home"><i class="las la-home"></i></a></li>
 				<li class="item"><a onclick="location.reload();" href="javascript:void(0);" title="Reload"><i class="las la-redo-alt"></i></a></li>
 				<li class="item"><a onclick="dumpState()" href="javascript:void(0);" title="Dump State"><i class="las la-save"></i></a></li>
-				<li class="item"><label for="state-upload"><i class="las la-upload"></i></label><input id="state-upload" type="file" onchange="uploadState()" title="Upload State"/></li>
+				<li class="item"><label for="state-upload"><i class="las la-file-import" title="Import State"></i></label><input id="state-upload" class="upload" type="file" onchange="uploadFile('sta', true, 'state')"/></li>
+				<!-- <li class="item"><label for="software-upload"><i class="las la-file-upload" title="Upload Software"></i></label><input id="software-upload" class="upload" type="file" onchange="uploadFile()"/></li> -->
 				<li class="item"><a onclick="toggleFullScreen()" href="javascript:void(0);" title="Fullscreen"><i class="las la-expand"></i></a></li>
 				<li class="item"><a onclick="emulator.toggleMute()" href="javascript:void(0);" title="Mute"><i class="las la-volume-mute"></i></a></li>
 			</ul>
@@ -42,16 +43,14 @@
 			// recurse directories
 			function getDirectory(path, files=[]) {
 				//console.log("[I] " + path);
-				if ( path === '/' ) {
-					var abs = path +  element;
-				} else {
-					var abs = path + '/' + element;
-				}
-
 				var sessionFS = window.FS.readdir(path);
 				if ( sessionFS !== 'undefined' ) {
 					sessionFS.forEach((element) => {
-						var abs = path + '/' + element;
+						if ( path === '/' ) {
+							var abs = path +  element;
+						} else {
+							var abs = path + '/' + element;
+						}
 						if ( element !== '..' && element !== '.' && element !== 'dev' && element !== 'proc' ) {
 							//console.log("[A] " + abs);
 							try {
@@ -133,7 +132,7 @@
 							// Prevent the default behavior (in this case, following the link)
 							event.preventDefault();
 						});
-						aTag.innerHTML = '<i class="las la-file">';
+						aTag.innerHTML = '<i class="las la-export">';
 						states.appendChild(aTag);
 						states.style.display = "block";
 					});
@@ -143,21 +142,26 @@
 
 			};
 
-			function uploadState() {
-				const file = document.querySelector("input[type=file]").files[0];
+			// upload a file into local storage
+			function uploadFile(dir="emulator", machine=false, id="software") {
+				const file = document.getElementById(id + "-upload").files[0];
 				const reader = new FileReader();
-
 				if (file) {
 					reader.readAsArrayBuffer(file);
-					var sta = FS.createPath(FS.root,'sta');
-					destfile = 'sta/' + machine + '/' + file.name;
-					FS.createPath(sta,machine);
-
+					var sta = FS.createPath(FS.root,dir);
+					destfile = dir + '/' + file.name;
+					if ( machine ) {
+						destfile = dir + machine + '/' + file.name;
+						FS.createPath(sta,machine);
+					}
 					Buffer = BrowserFS.BFSRequire('buffer').Buffer;
 					reader.addEventListener('loadend', function(e) {
 						data = e.target.result;
 						FS.writeFile(destfile,new Buffer(data));
+						console.log(destfile);
 					});
+				} else {
+					alert("Upload failed");
 				}
 			};
 

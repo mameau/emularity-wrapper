@@ -22,10 +22,11 @@ $cliArgs = "$cliDefaults $cliMerge";
 #
 # mount an item into the emulator
 #
-function mount($name="nonlisted.zip",$path="assets") {
+function mount($name="nonlisted.zip",$path="assets",$desc="") {
+	if ( empty($desc)) { $desc = basename($name); }
 	echo('
 		MAMELoader.mountFile("'.basename($name).'",
-					MAMELoader.fetchFile("'.basename($name).'",
+					MAMELoader.fetchFile("'.$desc.'",
 								"'.$path.'/'.$name.'")),
 		');
 }
@@ -37,8 +38,8 @@ function mount($name="nonlisted.zip",$path="assets") {
 function mount_all($array, $path){
 	if ( $array != NULL )
 	{
-		foreach ( $array as $item ) {
-			mount($item, $path);
+		foreach ( $array as $key => $item ) {
+			mount($item, $path, $key);
 		}
 	}
 }
