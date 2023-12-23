@@ -10,18 +10,25 @@
 			<ul class="menu">
 				<li class="item"><a href="index.php" title="Home"><i class="las la-home"></i></a></li>
 				<li class="item"><a onclick="location.reload();" href="javascript:void(0);" title="Reload"><i class="las la-redo-alt"></i></a></li>
+				<li class="item"><a onclick="JSMAME.soft_reset();" href="javascript:void(0);" title="Reset Machine (Soft)"><i class="las la-sync-alt"></i></a></li>
 				<li class="item"><a onclick="JSMAME.save('<?php echo $machine ?>')" href="javascript:void(0);" title="Save State"><i class="las la-save"></i></a></li>
-				<li class="item"><a onclick="dumpState()" href="javascript:void(0);" title="Dump State"><i class="las la-folder-open"></i></a></li>
-				<li class="item"><label for="state-upload"><i class="las la-file-import" title="Import State"></i></label><input id="state-upload" class="upload" type="file" onchange="uploadFile('sta', true, 'state')"/></li>
+				<li class="item"><a onclick="JSMAME.load('<?php echo $machine ?>')" href="javascript:void(0);" title="Load State"><i class="las la-door-open"></i></a></li>
+				<li class="item"><a onclick="dumpState()" href="javascript:void(0);" title="Dump State (no custom state folder)"><i class="las la-folder-open"></i></a></li>
+				<li class="item"><label for="state-upload"><i class="las la-file-import" title="Import State (no custom state folder)"></i></label><input id="state-upload" class="upload" type="file" onchange="uploadFile('sta', true, 'state')"/></li>
 				<li class="item"><label for="software-upload"><i class="las la-file-upload" title="Upload Software"></i></label><input id="software-upload" class="upload" type="file" onchange="uploadFile()"/></li>
 				<li class="item"><a onclick="toggleFullScreen()" href="javascript:void(0);" title="Fullscreen"><i class="las la-expand"></i></a></li>
-				<li class="item"><a onclick="emulator.toggleMute()" href="javascript:void(0);" title="Mute"><i class="las la-volume-mute"></i></a></li>
+				<li class="item"><a onclick="toggleMute()" href="javascript:void(0);" title="Mute"><i class="las la-volume-up"></i></a></li>
 			</ul>
 			<ul class="menu debug">
+				<li class="item"><a onclick="toggleFPS()" href="javascript:void(0);" title="Toggle FPS"><i class="las la-infinity"></i></a></li>
 				<li class="item"><a onclick="getDirectory('/')" href="javascript:void(0);" title="DumpFS"><i class="las la-folder-open"></i></a></li>
 				<li class="item"><a onclick="dumpCLI()" href="javascript:void(0);" title="Dump CLI"><i class="las la-terminal"></i></a></li>
 				<li class="item"><a onclick="dumpObj()" href="javascript:void(0);" title="Dump Objects"><i class="las la-object-group"></i></a></li>
-				<!-- <li class="item"><a onclick="createNVRAM()" href="javascript:void(0);" title="Create NVRAM"><i class="las la-microchip"></i></a></li> -->
+				<!--  Broken Options, either doesn't work or breaks machine in browser
+				<li class="item"><a onclick="createNVRAM()" href="javascript:void(0);" title="Create NVRAM"><i class="las la-microchip"></i></a></li>
+				<li class="item"><a onclick="JSMAME.hard_reset();" href="javascript:void(0);" title="Reset Machine (Hard)"><i class="las la-sync-alt"></i></a></li>
+				-->
+
 			</ul>
 		</div>
 		<div id="states" style="display: none;"></div>
@@ -170,7 +177,8 @@
 			};
 
 			// creates the /nvram/machine structure and symlinks nvram files from /emulator
-			// MAME does not read these NV ram file (x86/wasm incompat?)
+			// MAME does not read these NV ram file (x86/wasm incompat? or requires hard reset 
+			// which is broken atm)
 			function createNVRAM(dir='nvram') {
 				console.log(dir + " creation");
 				var base = FS.createPath(FS.root,dir);
@@ -185,6 +193,19 @@
 				}
 			}
 
+			function toggleFPS() {
+				const ui = JSMAME.get_ui();
+				var fpsState = JSMAME.ui_get_show_fps(ui);
+				if ( fpsState ) {
+					JSMAME.ui_set_show_fps(ui,0);
+				} else {
+					JSMAME.ui_set_show_fps(ui,1);
+				}
+			}
+
+			function toggleMute() {
+				emulator.toggleMute()
+			}
 		</script>
 	</body>
 </html>
