@@ -64,10 +64,10 @@
 		$ibm_base = "m=ct486&r[Bios]=ct486.zip&r[Firmware at_keybc]=at_keybc.zip&r[Firmware kb_ms_natural]=kb_ms_natural.zip&r[Firmware et4000]=et4000.zip&rw=$ibm_screen_width&rh=$ibm_screen_height&sc=$ibm_scale;"
 	?>
 	<a href="mameloader.php?<?php echo $ibm_base ?>">ct486</a><br />
-    <a href="mameloader.php?<?php echo $ibm_base ?>&s[Hard Disk]=ct486/msdos622.chd&p[hard]=msdos622.chd&st[Save State]=msdos622/ct486.sta&cli[]=-state_directory emulator -statename . -state ct486">MS-DOS</a> (Save State)<br />
-    <a href="mameloader.php?<?php echo $ibm_base ?>&s[Hard Disk]=ct486/doomsw.chd&p[hard]=doomsw.chd&st[Save State]=msdos622/doomsw-bios.sta&cli[]=-isa2 sblaster_16 -ramsize 64M -state_directory emulator -statename . -state doomsw-bios">DOOM</a> (Save State - POST)<br />
-    <a href="mameloader.php?<?php echo $ibm_base ?>&s[Hard Disk]=ct486/doomsw.chd&p[hard]=doomsw.chd&st[Save State]=msdos622/doomsw-cli.sta&cli[]=-isa2 sblaster_16 -ramsize 64M -state_directory emulator -statename . -state doomsw-cli">DOOM</a> (Save State - PROMPT)<br />
-    <a href="mameloader.php?<?php echo $ibm_base ?>&s[Hard Disk]=ct486/doomsw.chd&p[hard]=doomsw.chd&st[Save State]=msdos622/doomsw-launch.sta&cli[]=-isa2 sblaster_16 -ramsize 64M -state_directory emulator -statename . -state doomsw-launch">DOOM</a> (Save State - LAUNCH)<br />
+	<a href="mameloader.php?<?php echo $ibm_base ?>&s[Hard Disk]=ct486/msdos622.chd&p[hard]=msdos622.chd&st[Save State]=msdos622/ct486.sta&cli[]=-state_directory emulator -statename . -state ct486">MS-DOS</a> (Save State)<br />
+	<a href="mameloader.php?<?php echo $ibm_base ?>&s[Hard Disk]=ct486/doomsw.chd&p[hard]=doomsw.chd&st[Save State]=msdos622/doomsw-bios.sta&cli[]=-isa2 sblaster_16 -ramsize 64M -state_directory emulator -statename . -state doomsw-bios">DOOM</a> (Save State - POST)<br />
+	<a href="mameloader.php?<?php echo $ibm_base ?>&s[Hard Disk]=ct486/doomsw.chd&p[hard]=doomsw.chd&st[Save State]=msdos622/doomsw-cli.sta&cli[]=-isa2 sblaster_16 -ramsize 64M -state_directory emulator -statename . -state doomsw-cli">DOOM</a> (Save State - PROMPT)<br />
+	<a href="mameloader.php?<?php echo $ibm_base ?>&s[Hard Disk]=ct486/doomsw.chd&p[hard]=doomsw.chd&st[Save State]=msdos622/doomsw-launch.sta&cli[]=-isa2 sblaster_16 -ramsize 64M -state_directory emulator -statename . -state doomsw-launch">DOOM</a> (Save State - LAUNCH)<br />
 </div>
 
 <div>
