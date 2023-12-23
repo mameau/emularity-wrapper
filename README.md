@@ -4,12 +4,11 @@ messing around with emularity
 wrapper for emularity, see index.php (yes, yes) for examples of loading titles. nothing here is secured so use at your own risk. You can download and upload states from/to your session
 
 ## setup
-1. clone this repo
-2. clone emularity repo into vendor directory
-2. clone the fancy-ass icons8 set repo into vendor directory
-3. host the site (php required atm)
-4. add roms and software, update index.php
-4. play some games
+1. clone this repo `git clone --recurse-submodules https://github.com/mameau/emularity-wrapper.git`
+2. host the site (php required atm)
+3. add roms and software
+4. copy index.example.php to index.php and modify it
+5. play some games
 
 ## layout
 ```
@@ -19,6 +18,8 @@ wrapper for emularity, see index.php (yes, yes) for examples of loading titles. 
 │   └── hash
 ├── binaries
 │   ├── machines
+│   ├── nvram
+│   ├── state
 │   ├── roms
 │   └── software
 │       ├── apple2_flop_orig
@@ -62,3 +63,7 @@ cli[]   -> custom cli options (extraArgs)
 
 
 Have only tried out MAME so far
+
+
+## known issues
+* no nvram support, doesn't matter if you get into the storage MAME does appear to read it

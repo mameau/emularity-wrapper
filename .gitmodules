@@ -1,0 +1,6 @@
+[submodule "vendor/emularity"]
+	path = vendor/emularity
+	url = https://github.com/db48x/emularity.git
+[submodule "vendor/line-awesome"]
+	path = vendor/line-awesome
+	url = https://github.com/icons8/line-awesome.git
