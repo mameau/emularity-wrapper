@@ -14,7 +14,7 @@ isset($_GET['rh']) ? $resh = $_GET['rh'] : $resh = 224;
 isset($_GET['p']) ? $peripherals = $_GET['p'] : $peripherals = array();
 isset($_GET['cli']) ? $cli = $_GET['cli'] : $cli = array();
 
-$cliDefaults = "-ui_active -lowlatency -nowaitvsync -nofilter -renderdriver opengles2";
+$cliDefaults = "-lowlatency -nowaitvsync -nofilter -renderdriver opengles2";
 $cliMerge = implode(" ", $cli);
 $cliArgs = "$cliDefaults $cliMerge";
 

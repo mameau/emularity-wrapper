@@ -13,7 +13,7 @@
 				<li class="item"><a onclick="JSMAME.save('<?php echo $machine ?>')" href="javascript:void(0);" title="Save State"><i class="las la-save"></i></a></li>
 				<li class="item"><a onclick="dumpState()" href="javascript:void(0);" title="Dump State"><i class="las la-folder-open"></i></a></li>
 				<li class="item"><label for="state-upload"><i class="las la-file-import" title="Import State"></i></label><input id="state-upload" class="upload" type="file" onchange="uploadFile('sta', true, 'state')"/></li>
-				<!-- <li class="item"><label for="software-upload"><i class="las la-file-upload" title="Upload Software"></i></label><input id="software-upload" class="upload" type="file" onchange="uploadFile()"/></li> -->
+				<li class="item"><label for="software-upload"><i class="las la-file-upload" title="Upload Software"></i></label><input id="software-upload" class="upload" type="file" onchange="uploadFile()"/></li>
 				<li class="item"><a onclick="toggleFullScreen()" href="javascript:void(0);" title="Fullscreen"><i class="las la-expand"></i></a></li>
 				<li class="item"><a onclick="emulator.toggleMute()" href="javascript:void(0);" title="Mute"><i class="las la-volume-mute"></i></a></li>
 			</ul>
