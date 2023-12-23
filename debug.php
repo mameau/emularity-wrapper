@@ -10,7 +10,8 @@
 			<ul class="menu">
 				<li class="item"><a href="index.php" title="Home"><i class="las la-home"></i></a></li>
 				<li class="item"><a onclick="location.reload();" href="javascript:void(0);" title="Reload"><i class="las la-redo-alt"></i></a></li>
-				<li class="item"><a onclick="dumpState()" href="javascript:void(0);" title="Dump State"><i class="las la-save"></i></a></li>
+				<li class="item"><a onclick="JSMAME.save('<?php echo $machine ?>')" href="javascript:void(0);" title="Save State"><i class="las la-save"></i></a></li>
+				<li class="item"><a onclick="dumpState()" href="javascript:void(0);" title="Dump State"><i class="las la-folder-open"></i></a></li>
 				<li class="item"><label for="state-upload"><i class="las la-file-import" title="Import State"></i></label><input id="state-upload" class="upload" type="file" onchange="uploadFile('sta', true, 'state')"/></li>
 				<!-- <li class="item"><label for="software-upload"><i class="las la-file-upload" title="Upload Software"></i></label><input id="software-upload" class="upload" type="file" onchange="uploadFile()"/></li> -->
 				<li class="item"><a onclick="toggleFullScreen()" href="javascript:void(0);" title="Fullscreen"><i class="las la-expand"></i></a></li>
@@ -90,7 +91,7 @@
 				window.URL.revokeObjectURL(url);
 				};
 			}());
-			saveByteArray([bytes],machine+"_"+basename(abs));
+			saveByteArray([bytes],basename(abs));
 			}
 
 			// simple basename function
@@ -111,10 +112,11 @@
 
 			// dump the state files for the user to download
 			function dumpState(dir='sta') {
+
 				try {
-						var stateFS = getDirectory(dir);
-						var staOpts = [];
-						stateFS.forEach((element) => {
+					var stateFS = getDirectory(dir);
+					var staOpts = [];
+					stateFS.forEach((element) => {
 						if ( element !== '..' && element !== '.' && element.match(/.*\.sta$/) != 'null' ) {
 							staOpts.push(element);
 						}
@@ -122,36 +124,38 @@
 
 					var states = document.getElementById('states');
 					states.innerHTML = "";
-					staOpts.forEach((element) => {
-						var aTag = document.createElement('a');
-						aTag.setAttribute('href',"javascript:void(0);");
-						aTag.setAttribute('title',basename(element));
-						aTag.addEventListener('click',function(event) {
-							dumpFile(element)
-							states.style.display = "none";
-							// Prevent the default behavior (in this case, following the link)
-							event.preventDefault();
+						staOpts.forEach((element) => {
+							var aTag = document.createElement('a');
+							aTag.setAttribute('href',"javascript:void(0);");
+							aTag.setAttribute('title',basename(element));
+							aTag.addEventListener('click',function(event) {
+								dumpFile(element)
+								states.style.display = "none";
+								// Prevent the default behavior (in this case, following the link)
+								event.preventDefault();
+							});
+							aTag.innerHTML = '<i class="las la-file-export">';
+							states.appendChild(aTag);
+							states.style.display = "block";
 						});
-						aTag.innerHTML = '<i class="las la-export">';
-						states.appendChild(aTag);
-						states.style.display = "block";
-					});
 				} catch {
 					alert("save state not found");
 				}
-
 			};
 
 			// upload a file into local storage
-			function uploadFile(dir="emulator", machine=false, id="software") {
+			function uploadFile(dir="emulator", makeMachine=false, id="software") {
 				const file = document.getElementById(id + "-upload").files[0];
 				const reader = new FileReader();
+
 				if (file) {
 					reader.readAsArrayBuffer(file);
+
 					var sta = FS.createPath(FS.root,dir);
-					destfile = dir + '/' + file.name;
-					if ( machine ) {
-						destfile = dir + machine + '/' + file.name;
+					var destfile = dir + '/' + file.name;
+
+					if ( makeMachine ) {
+						destfile = dir + '/' + machine + '/' + file.name;
 						FS.createPath(sta,machine);
 					}
 					Buffer = BrowserFS.BFSRequire('buffer').Buffer;
